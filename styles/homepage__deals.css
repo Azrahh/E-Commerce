@@ -14,7 +14,8 @@
 }
 
 #deals {
-  margin: 10%;
+  background-color: var(--grey-500);
+  padding: 10%;
 }
 
 .card-container {
@@ -96,4 +97,12 @@
   width: 100%;
   border-radius: 24px;
   margin-top: 24px;
+}
+@media(max-width: 768px){
+  h2{
+    font-size: 2rem;
+  }
+  #deals{
+    padding: 1rem;
+  }
 }
