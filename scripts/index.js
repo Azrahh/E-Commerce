@@ -1,4 +1,5 @@
 let prods = []; // store the response from the API
+let chosenProducts = [];
 
 async function getProducts(category) {
   let URL = '';
@@ -21,7 +22,6 @@ async function getProducts(category) {
 
     if (Array.isArray(json)) {
       json.forEach((element) => {
-
         buildCard(element);
       });
     } else {
@@ -32,9 +32,9 @@ async function getProducts(category) {
   }
 }
 
-getProducts();
 
 function buildCard(product) {
+
   // Hard coding the brands
   const brands = ["Apple inc.", "Xiaomi inc.", "Google LLC", "Outfitters", "Faberge", "Versace", "Gucci", "Ferrero Rochet"];
   // select one of the brands randomly
@@ -55,13 +55,18 @@ function buildCard(product) {
         <p class="heading">${product.title}</p>\n
         <p class="brand">${brand}</p>\n
         <p class="price">${"$ " + product.price}</p>\n
-        <button class="button-solid" type="button">More Info</button>\n
+        <button class="button-solid add-cart" type="button">Add to Cart</button>\n
       </div>\n
     </div>\n
   </div>\n`;
 
   // get the card container
   $("#products-container").append(html);
+  // Adds event listeners on buttons
+  $(".add-cart").on("click", () => {
+    chosenProducts.push(product);
+    console.log(product);
+  });
 }
 
 function clearContent(element) {
@@ -71,14 +76,35 @@ function clearContent(element) {
   // Remove the "active-filter" class from all elements with class "category"
   $("#categories .category").removeClass("active-filter");
 
-  // Add the "active-filter" class to the clicked element
-  $(`#${element}`).addClass("active-filter");
-
-  if (element == "default") {
-    $("#container-title").text("All products");
-  } else {
-    $("#container-title").text(element);
+  if (element != "default") {
+    // Add the "active-filter" class to the clicked element.
+    // IF the filter is NOT default.
+    $(`#${element}`).addClass("active-filter");
   }
+
+  // stores the title of the container heading.
+  let title = '';
+  // change the heading corresponding to the product type
+  switch (element) {
+    case "men-clothes":
+      title = "Men's Clothing";
+      break;
+    case "women-clothes":
+      title = "Women's Clothing";
+      break;
+    case "jewel":
+      title = "Jewelry";
+      break;
+    case "tech":
+      title = "Technology";
+      break;
+    default:
+      title = "All products";
+      break;
+  }
+  // Set the title of the Container Heading
+  $("#container-title").text(title);
+
 }
 
 // FILTER(s)
@@ -86,9 +112,13 @@ function showDefault() {
   clearContent("default");
   getProducts();
 }
-function showClothes() {
-  clearContent("clothes")
+function showMenClothes() {
+  clearContent("men-clothes")
   getProducts("men's clothing");
+}
+function showWomenClothes() {
+  clearContent("women-clothes")
+  getProducts("women's clothing");
 }
 
 function showJewel() {
@@ -100,3 +130,5 @@ function showTech() {
   clearContent("tech");
   getProducts("electronics");
 }
+
+getProducts(); //! LOADS PRODUCTS. DO NOT REMOVE!
