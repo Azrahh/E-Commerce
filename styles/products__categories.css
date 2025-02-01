@@ -15,6 +15,7 @@
 
 body {
   overflow-y: scroll;
+  position: relative;
 }
 
 header {
@@ -45,9 +46,10 @@ header h1 {
 }
 
 .category {
-  background-color: var(--purple-300);
+  background: var(--purple-300);
   padding: 1rem;
   color: #fff;
+  transition: background 0.3s;
 }
 
 .category:hover {
@@ -56,6 +58,7 @@ header h1 {
 }
 
 #products-container {
+  min-height: 100vh;
   display: grid;
   grid-template-columns: 33% 33% 33%;
   gap: 1.5rem;
@@ -145,7 +148,19 @@ header h1 {
   }
 
   #categories {
+    flex-direction: row;
     flex-wrap: wrap;
+  }
+
+  .category {
+    border-radius: 0 !important;
+    padding: 1rem 0.5rem;
+    width: 25%;
+  }
+
+  .category:first-child {
+    padding: 1rem;
+    width: 100%;
   }
 
   #products-container {
@@ -153,4 +168,7 @@ header h1 {
     gap: 1rem;
     padding: 3rem 1rem;
   }
+#container-title {
+  font-size: 3rem;
+}
 }

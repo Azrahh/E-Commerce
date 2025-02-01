@@ -5,10 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GadgetWala - #1 tech store in Pakistan</title>
+  <link rel="icon" type="image/x-icon" href="assets/favicon.png" />
 
-  <!-- Bootstrap -->
-  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous"> -->
   <script src="https://kit.fontawesome.com/8d6806cdef.js" crossorigin="anonymous"></script>
 
   <link rel="stylesheet" href="styles/global_styles.css">
@@ -22,16 +20,19 @@
 
 <body>
   <nav>
-    <div id="brand-logo">
-      <img src="assets/main_logo.svg" alt="brand logo">
+    <div id="brand-logo" title="GadgetWala Homepage">
+      <a href="index.html"><img src="assets/main_logo.svg" alt="brand logo"></a>
     </div>
     <div id="nav-links">
-      <a href="index.html" id="active">Home</a>
-      <a href="pages/products.html">Products</a>
-      <a href="#">About</a>
+      <a href="index.html" id="active" title="Homepage">Home</a>
+      <a href="pages/products.html" title="Products Page">Products</a>
+      <a href="#contact" title="Contacts Page">Contact</a>
     </div>
-    <div id="cart-logo">
-      <img src="assets/icons/icon_cart.svg" alt="cart icon">
+    <div id="cart-logo" style="visibility: hidden;" title="Open your Cart">
+      <i class="fa-solid fa-cart-shopping"></i>
+    </div>
+    <div id="hamburger-icon" onclick="showNavigation();" title="Show More">
+      <i class="fa-solid fa-bars"></i>
     </div>
   </nav>
 
@@ -43,12 +44,12 @@
       <div id="hero-container">
         <div class="space-50">
           <div class="txt-container" id="hero-txt-container">
-            <h1>Tech at affordable price.</h1>
-            <p>Find the tech products you want at the BEST affordable price.</p>
+            <h1>The store you can TRUST</h1>
+            <p>Find the products you want at the BEST affordable price.</p>
           </div>
           <div id="search-menu">
             <input class="" type="text" name="search product" placeholder="What are you looking for?">
-            <button class="button-solid" type="submit">Search</button>
+            <button class="button-solid" type="submit" title="Search">Search</button>
           </div>
         </div>
         <div class="space-50" id="hero-img-container">
@@ -56,15 +57,21 @@
         </div>
       </div>
     </section>
+
     <div class="divider"><img src="assets/img/image_divider.svg" alt="divider"></div>
+
     <section id="show-off" class="">
       <div class="space-50">
         <img src="assets/img/image_show_off.svg" alt="featured picture">
       </div>
       <div class="space-50">
         <h2>50+ Products</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, molestiae!</p>
-        <button class="button-solid" id="order-now-btn" type="submit" value="submit" name="Order Now">Order Now</button>
+        <p>Shop from a range of 50+ exciting products</p>
+        <a href="pages/products.html">
+          <button class="button-solid" id="order-now-btn" type="submit" value="submit" title="Order Now" name="Order Now">
+            Order Now
+          </button>
+        </a>
       </div>
     </section>
 
@@ -75,34 +82,38 @@
       <div class="grid">
         <div class="feature-card">
           <div class="feature-icon">
-            <img src="assets/icons/icon_bolt.svg" alt="bolt icon">
+            <!-- <img src="assets/icons/icon_bolt.svg" alt="bolt icon"> -->
+            <i class="fa-solid fa-truck-fast fa-xl"></i>
           </div>
           <div class="txt-container">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio neque pariatur id eos, obcaecati sit.
+            Fast Delivery
           </div>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
-            <img src="assets/icons/icon_bolt.svg" alt="bolt icon">
+            <!-- <img src="assets/icons/icon_bolt.svg" alt="bolt icon"> -->
+            <i class="fa-solid fa-box fa-xl"></i>
           </div>
           <div class="txt-container">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio neque pariatur id eos, obcaecati sit.
+            100% Original Products
           </div>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
-            <img src="assets/icons/icon_bolt.svg" alt="bolt icon">
+            <!-- <img src="assets/icons/icon_bolt.svg" alt="bolt icon"> -->
+            <i class="fa-solid fa-dollar-sign fa-xl"></i>
           </div>
           <div class="txt-container">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio neque pariatur id eos, obcaecati sit.
+            Best Prices.
           </div>
         </div>
         <div class="feature-card">
           <div class="feature-icon">
-            <img src="assets/icons/icon_bolt.svg" alt="bolt icon">
+            <!-- <img src="assets/icons/icon_bolt.svg" alt="bolt icon"> -->
+            <i class="fa-solid fa-hand-holding-hand fa-xl"></i>
           </div>
           <div class="txt-container">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio neque pariatur id eos, obcaecati sit.
+            Exceptional Return Policy.
           </div>
         </div>
       </div>
@@ -111,19 +122,29 @@
     <section id="contact">
       <div class="row">
         <h2>Stay in touch</h2>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, dolores!</p>
+        <p>Follow us on social media for latest updates</p>
 
         <div id="social-link-container" class="fl-row">
-          <div class="social-link"><i class="fa-brands fa-xl fa-linkedin-in"></i></div>
-          <div class="social-link"><i class="fa-brands fa-xl fa-github"></i></div>
-          <div class="social-link"><i class="fa-brands fa-xl fa-twitter"></i></div>
-          <div class="social-link"><i class="fa-brands fa-xl fa-whatsapp"></i></div>
-          <div class="social-link"><i class="fa-brands fa-xl fa-facebook-f"></i></div>
+          <a href="https://www.w3.org/Provider/Style/dummy.html">
+            <div class="social-link"><i class="fa-brands fa-xl fa-linkedin-in"></i></div>
+          </a>
+          <a href="https://www.w3.org/Provider/Style/dummy.html">
+            <div class="social-link"><i class="fa-brands fa-xl fa-github"></i></div>
+          </a>
+          <a href="https://www.w3.org/Provider/Style/dummy.html">
+            <div class="social-link"><i class="fa-brands fa-xl fa-twitter"></i></div>
+          </a>
+          <a href="https://www.w3.org/Provider/Style/dummy.html">
+            <div class="social-link"><i class="fa-brands fa-xl fa-whatsapp"></i></div>
+          </a>
+          <a href="https://www.w3.org/Provider/Style/dummy.html">
+            <div class="social-link"><i class="fa-brands fa-xl fa-facebook-f"></i></div>
+          </a>
         </div>
       </div>
       <div class="row">
         <h2>Newsletter</h2>
-        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. A, hic.</p>
+        <p>Get fresh deals and updates delivered right in your mailbox!</p>
         <div id="newsletter">
           <input type="text" name="email" id="email" placeholder="Enter your email address" />
           <button type="submit" class="button-solid">Subscribe</button>
@@ -139,7 +160,7 @@
   </footer>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-  <script type="module" src="scripts/index.js"></script>
+  <script src="scripts/index.js"></script>
 </body>
 
 </html>

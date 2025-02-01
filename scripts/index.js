@@ -1,5 +1,4 @@
-let prods = []; // store the response from the API
-let chosenProducts = [];
+let chosenProducts = []; //stores the user selected products
 
 async function getProducts(category) {
   let URL = '';
@@ -32,6 +31,7 @@ async function getProducts(category) {
   }
 }
 
+//? Builds the product cards from the API response 
 function buildCard(product) {
 
   // Hard coding the brands
@@ -63,7 +63,7 @@ function buildCard(product) {
   $("#products-container").append(html);
 }
 
-// FILTER(s)
+//? FILTER(s)
 function showDefault() {
   clearContent("default");
   getProducts();
@@ -87,6 +87,7 @@ function showTech() {
   getProducts("electronics");
 }
 
+//? Utility function. Used to clear the previous response 
 function clearContent(element) {
   // Clear the content of "products-container"
   $("#products-container").empty();
@@ -124,66 +125,171 @@ function clearContent(element) {
   $("#container-title").text(title);
 }
 
+//? this function is triggered each time a user clicks "Add to cart".
 function addCart() {
   // Attach event listener using event delegation to #products-container
   $("#products-container").on("click", ".add-cart", function () {
+
+    let productFound = false;
+
     // Find the parent card of the button
     const card = $(this).closest(".card");
 
+    // Access elements in div.txt-container
+    const txtContainer = card.find(".txt-container");
+    const title = txtContainer.find(".heading").text();
+
+    chosenProducts.forEach((item) => {
+      if (item.title == title) {
+        item.quantity++;
+        productFound = true;
+        return;
+      }
+    });
+
+    // if the product is found. Exit this function.
+    if (productFound) {
+      showCartProducts();
+      return
+    };
+
+    console.log("Still Adding Product")
     let selectedItem = {
       title: "",
       brand: "",
       price: "",
       imgUrl: "",
+      quantity: 1,
     };
-    // Access elements in div.txt-container
-    const txtContainer = card.find(".txt-container");
-    selectedItem['title'] = txtContainer.find(".heading").text(); // Corrected class name from .heading to .title
-    selectedItem['brand'] = txtContainer.find(".brand").text();
-    selectedItem['price'] = parseFloat(txtContainer.find(".price").text().substring(1)); // Convert price to a number
-    selectedItem['imgUrl'] = card.find(".img-container img").attr("src"); // Corrected class name from .img-container img to .prod-img
 
+    selectedItem['title'] = txtContainer.find(".heading").text();
+    selectedItem['brand'] = txtContainer.find(".brand").text();
+    selectedItem['price'] = parseFloat(txtContainer.find(".price").text().substring(1));
+    selectedItem['imgUrl'] = card.find(".img-container img").attr("src");
     chosenProducts.push(selectedItem);
     showCartProducts();
     console.log(chosenProducts);
+    // showPopup("Item added successfully")
   });
 }
 
+//? this functions loads all the user selected products into the cart. 
 function showCartProducts() {
-  let totalItemCount = chosenProducts.length;
-  let totalPrice = 0; // Initialize totalPrice to 0
+  // Set the counter to 0
+  let totalItemCount = 0;
+  let totalPrice = 0;
 
+  // count the quantity of all the products available in the cart.
+  chosenProducts.forEach((item) => {
+    totalItemCount += parseInt(item.quantity);
+  });
+
+  // clear the previous result in cart container
   $("#cart-products-container").empty();
 
+  // run a loop for every user selected item.
   chosenProducts.forEach((item) => {
     totalPrice += item.price;
     buildCartCard(item);
   });
-  $("#total-products").text(totalItemCount);
-  $("#total-price").text(`$${totalPrice.toFixed(2)}`); // Display totalPrice with 2 decimal places
+
+  $("#total-products").text(totalItemCount); // display total products in the cart
+  $("#cart-counter").text(totalItemCount);
+  $("#total-price").text(`$${totalPrice.toFixed(2)}`); // display sum of total amount of user selected products
 }
 
+//? Builds cards for the Cart Section. 
 function buildCartCard(item) {
   let html = `
   <div class="cart-card">\n
+    <div id="remove-item"><i class="fa-regular fa-trash-can"></i></div>
     <img class="prod-img" src="${item.imgUrl}" alt="product image">\n
     <div class="txt-container">\n
-      <div class="title">${item.title}</div>\n
-      <div class="brand">${item.brand}</div>\n
+      <div>
+        <div class="title">${item.title}</div>\n
+        <div class="brand">${item.brand}</div>\n
+      </div>
+      <div class="quantity">Qty. x ${item.quantity}</div>\n
     </div>\n
     <p class="price">$${item.price.toFixed(2)}</p>\n
   </div>\n
   <hr>\n`;
 
-  // Corrected the selector to prepend the card to cart-products-container
+  // Adds cards into the Cards container.
   $("#cart-products-container").append(html);
 }
 
-
-// getProducts(); //! LOADS PRODUCTS. DO NOT REMOVE!
-// addCart();
-
 function showCart() {
   $("#cart").toggle();
-
 }
+
+function closeCheckout() {
+  $("#checkout").toggle();
+}
+
+if (chosenProducts.length > 0) {
+  $("#toCheckout").removeAttr("disabled");
+}
+
+function showPopup(message) {
+  let html = `<div class="success-popup">\n
+  <div class="popup-message">\n
+    <i class="fa-regular fa-circle-check fa-lg"></i>\n
+    <p>${message}</p>
+  </div>
+</div>`
+
+  $("body").append(html).show().delay(100).fadeOut();
+}
+function showNavigation() {
+  // If the navbar is HIDDEN make it visible.
+  if ($("#nav-links").css("visibility") == "hidden") {
+    $("#nav-links").css("visibility", "visible");
+  }
+  // else make it HIDDEN
+  else {
+    $("#nav-links").css("visibility", "hidden");
+  }
+}
+
+function removeItem() {
+}
+console.log("event listener getting attached.")
+$("#cart-products-container").on("click", ".cart-card #remove-item", function () {
+  console.log("removing item");
+  // Find the parent cart card and remove it
+  const card = $(this).closest(".cart-card");
+  const txtContainer = card.find(".txt-container");
+  const title = txtContainer.find(".heading").text();
+
+
+});
+$("#cart-products-container").on("click", ".cart-card #remove-item", function () {
+  const card = $(this).closest(".cart-card");
+  const title = card.find(".title").text();
+
+  // Remove the item from the chosenProducts array
+  chosenProducts = chosenProducts.filter((item) => item.title !== title);
+
+  // Remove the cart card from the UI
+  card.remove();
+
+  // Update the cart products display
+  showCartProducts();
+});
+
+$("#Credit-Card").change(function () {
+  // Check if the radio button is checked
+  if ($(this).is(":checked")) {
+    // Display the credit card details div
+    $("#card-detail").toggle();
+  }
+});
+
+$("#Easypaisa").change(function () {
+  // Check if the radio button is checked
+  if ($(this).is(":checked")) {
+    // Display the credit card details div
+    $("#easypaisa-num").toggle();
+  }
+});
