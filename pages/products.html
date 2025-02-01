@@ -11,10 +11,11 @@
   <link rel="stylesheet" href="../styles/global_styles.css" />
 
   <link rel="stylesheet" href="../styles/products__categories.css" />
+  <link rel="stylesheet" href="../styles/products__cart.css">
 
 </head>
 
-<body>
+<body onload="getProducts(); addCart(); showCartProducts();">
   <nav>
     <div id="brand-logo">
       <img src="../assets/main_logo.svg" alt="brand logo">
@@ -24,18 +25,23 @@
       <a href="products.html" id="active">Products</a>
       <a href="#">About</a>
     </div>
-    <div id="cart-logo"><img src="../assets/icons/icon_cart.svg" alt="cart icon"></div>
+    <div id="cart-logo">
+      <img onclick="showCart();" src="../assets/icons/icon_cart.svg" alt="cart icon">
+    </div>
   </nav>
   <main>
     <header>
       <h1 id="container-title">All Products</h1>
       <!-- <hr> -->
       <section id="categories">
-        <div id="default" class="category" onclick="showDefault();"><i class="fa-regular fa-circle-xmark fa-xl"></i>  Clear Filters</div>
-        <div id="men-clothes" class="category" onclick="showMenClothes();"><i class="fa-solid fa-mars fa-xl"></i> Clothes</div>
-        <div id="women-clothes" class="category" onclick="showWomenClothes();"><i class="fa-solid fa-venus fa-xl"></i>  Clothes</div>
-        <div id="jewel" class="category" onclick="showJewel();"><i class="fa-regular fa-gem fa-xl"></i>  Jewelry</div>
-        <div id="tech" class="category" onclick="showTech();"><i class="fa-solid fa-headphones fa-xl"></i>  Tech</div>
+        <div id="default" class="category" onclick="showDefault();"><i class="fa-regular fa-circle-xmark fa-xl"></i>
+          Clear Filters</div>
+        <div id="men-clothes" class="category" onclick="showMenClothes();"><i class="fa-solid fa-mars fa-xl"></i>
+          Clothes</div>
+        <div id="women-clothes" class="category" onclick="showWomenClothes();"><i class="fa-solid fa-venus fa-xl"></i>
+          Clothes</div>
+        <div id="jewel" class="category" onclick="showJewel();"><i class="fa-regular fa-gem fa-xl"></i> Jewelry</div>
+        <div id="tech" class="category" onclick="showTech();"><i class="fa-solid fa-headphones fa-xl"></i> Tech</div>
       </section>
       <!-- <hr> -->
       <div id="products-container">
@@ -43,6 +49,34 @@
       </div>
     </header>
   </main>
+
+  <!-- Cart Section -->
+  <section id="cart" style="display: none;">
+    <h1 id="cart-container-title">Your Cart</h1>
+    <div id="cart-products-container">
+      <div class="cart-card">
+        <img src="https://picsum.photos/100" alt="product image">
+        <div>
+          <p class="title">I am Title</p>
+          <p class="brand">Xiaomi inc.</p>
+        </div>
+        <p class="price">100$</p>
+      </div>
+    </div>
+    <hr>
+    <div id="total-stats">
+      <div>
+        <p class="heading">Total Products</p>
+        <p id="total-products"></p>
+      </div>
+      <div>
+        <p class="heading">Total Amount</p>
+        <p id="total-price"></p>
+      </div>
+
+    </div>
+  </section>
+
   <footer class="fl-row">
     <div class="space-50">
       <p>GadgetWala 2023 &copy; All rights reserved.</p>
